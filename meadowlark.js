@@ -42,6 +42,13 @@ app.use(function(err, req, res, next){
             res.render('500');
 });
 
+//middleware to detect test=1
+app.use(function(req, res, next){
+	res.locals.showTests = app.get('env') !== 'production' &&
+	req.query.test === '1';
+	next();
+})
+
 //Static middleware
 app.use(express.static(__dirname + '/public'));
 
